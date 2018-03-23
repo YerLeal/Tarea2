@@ -9,8 +9,8 @@ import javax.swing.JMenuItem;
 
 public class Window extends JFrame implements ActionListener {
 
-    //private JIFNewVehicle jifNewVehicle;
-
+    JIFNewVehicle jifNewVehicle;
+    
     private JMenuBar jMenuBar;
     private JMenu jmInsert;
     private JMenuItem jmiNewVehicle;
@@ -25,8 +25,8 @@ public class Window extends JFrame implements ActionListener {
     } // constructor
 
     private void init() {
-//        this.jifNewVehicle = new JIFNewVehicle();
-//        this.add(this.jifNewVehicle);
+        this.jifNewVehicle = new JIFNewVehicle();
+        this.add(this.jifNewVehicle);
 
         this.jMenuBar = new JMenuBar();
 
@@ -35,6 +35,9 @@ public class Window extends JFrame implements ActionListener {
         this.jmiNewVehicle = new JMenuItem("New Vehicle");
 
         this.jmiNewVehicle.addActionListener(this);
+        
+        this.jmInsert.setMnemonic('I');
+        this.jmiNewVehicle.setMnemonic('N');
 
         this.jMenuBar.add(this.jmInsert);
         this.jmInsert.add(this.jmiNewVehicle);
@@ -45,13 +48,8 @@ public class Window extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.jmiNewVehicle) {
-//            if (!this.jifNewVehicle.isShowing()) {
-//                this.jifNewVehicle = new JIFNewVehicle();
-//                this.add(this.jifNewVehicle);
-//                this.jifNewVehicle.setVisible(true);
-//                this.add(this.jifNewVehicle);
-//            }
+        if(e.getSource() == this.jmiNewVehicle){
+            this.jifNewVehicle.setVisible(true);
         }
     } // actionPerformed
 
