@@ -48,7 +48,7 @@ public class VehicleFileTest {
 
     //@Test
     public void addNewVehicle() throws IOException {
-        Vehicle v = new Vehicle("Toyota Prius", 1997, 100, false, 126);
+        Vehicle v = new Vehicle("Cadillac", 2010, 100, true, 123);
         vehicleFile.addEndRecord(v);
     }
 
@@ -58,6 +58,16 @@ public class VehicleFileTest {
         for (Vehicle vehicle : vehicles) {
             System.out.println(vehicle.toString());
         }
+    }
+    
+    //@Test
+    public void isAmerican() throws IOException{
+        System.out.println(vehicleFile.isValid(1));
+    }
+    
+    //@Test
+    public void deleteVehicleFile() throws IOException{
+        vehicleFile.deleteStudent(123);
     }
 
     // TODO add test methods here.

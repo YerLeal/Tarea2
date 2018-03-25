@@ -11,7 +11,7 @@ import javax.swing.JMenuItem;
 public class Window extends JFrame implements ActionListener {
 
     JIFNewVehicle jifNewVehicle;
-    
+
     private JMenuBar jMenuBar;
     private JMenu jmInsert;
     private JMenuItem jmiNewVehicle;
@@ -21,6 +21,7 @@ public class Window extends JFrame implements ActionListener {
         this.setLayout(null);
         init();
         this.setVisible(true);
+        this.setResizable(false);
         this.setSize(800, 600);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     } // constructor
@@ -36,7 +37,7 @@ public class Window extends JFrame implements ActionListener {
         this.jmiNewVehicle = new JMenuItem("New Vehicle");
 
         this.jmiNewVehicle.addActionListener(this);
-        
+
         this.jmInsert.setMnemonic('I');
         this.jmiNewVehicle.setMnemonic('N');
 
@@ -49,7 +50,7 @@ public class Window extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == this.jmiNewVehicle){
+        if (e.getSource() == this.jmiNewVehicle) {
             this.jifNewVehicle.setVisible(true);
         }
     } // actionPerformed

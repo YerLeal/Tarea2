@@ -122,6 +122,13 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
                 year = Integer.parseInt(this.jtfYear.getText());
                 mileage = Float.parseFloat(this.jtfMileage.getText());
                 serie = Integer.parseInt(this.jtfSerie.getText());
+                if(year<1885 || mileage<0 || serie<=0){
+                    String message = "Invalid data";
+                    if(year<1885){
+                        message = message + ", the first automobiles were created in the 18th century.";
+                    }
+                    JOptionPane.showMessageDialog(this, message, "Error", 2);
+                }
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(this, "The year, mileage and serie must be a number.", "Error", 0);
                 return false;
@@ -129,6 +136,10 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
         }
         if (this.jrbYes.isSelected() == false && this.jrbNo.isSelected() == false) {
             JOptionPane.showMessageDialog(this, "You must select if the car is American.", "Error", 0);
+            return false;
+        }
+        if (!vehicleFile.isValid(serie)) {
+            JOptionPane.showMessageDialog(this, "The series is already registered.", "Error", 0);
             return false;
         }
         Vehicle newVehicle = new Vehicle(name, year, mileage, false, serie);

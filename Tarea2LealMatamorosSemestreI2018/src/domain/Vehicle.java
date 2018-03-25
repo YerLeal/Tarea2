@@ -66,7 +66,7 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "Car{" + "serie=" + serie + ", name=" + name + ", year=" + year + ", mileage=" + mileage + ", american=" + american + '}';
+        return "Vehicle{" + "serie=" + serie + ", name=" + name + ", year=" + year + ", mileage=" + mileage + ", american=" + american + '}';
     }
     
     public int sizeInBytes(){
