@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -15,7 +16,7 @@ public class Window extends JFrame implements ActionListener {
     private JMenu jmInsert;
     private JMenuItem jmiNewVehicle;
 
-    public Window() {
+    public Window() throws IOException {
         super("Tarea 2");
         this.setLayout(null);
         init();
@@ -24,7 +25,7 @@ public class Window extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     } // constructor
 
-    private void init() {
+    private void init() throws IOException {
         this.jifNewVehicle = new JIFNewVehicle();
         this.add(this.jifNewVehicle);
 

@@ -47,6 +47,7 @@ public class VehicleFile {
                 this.randomAccessFile.writeFloat(vehicle.getMileage());
                 this.randomAccessFile.writeBoolean(vehicle.isAmerican());
                 this.randomAccessFile.writeInt(vehicle.getSerie());
+                close();
                 return true;
             } // if (vehicle.sizeInBytes() > this.regSize)
         } // if (!(position >= 0 && position <= this.regsQuantity))
@@ -69,7 +70,7 @@ public class VehicleFile {
             tempVehicle.setMileage(this.randomAccessFile.readFloat());
             tempVehicle.setAmerican(this.randomAccessFile.readBoolean());
             tempVehicle.setSerie(this.randomAccessFile.readInt());
-
+            //close();
             if (tempVehicle.getSerie() == -1) {
                 return null;
             } else {
