@@ -63,6 +63,14 @@ public class Vehicle {
     public void setSerie(int serie) {
         this.serie = serie;
     }
+    
+    public String getAmerican(){
+        if(this.american){
+            return "Sí";
+        }else{
+            return "No";
+        }
+    }
 
     @Override
     public String toString() {

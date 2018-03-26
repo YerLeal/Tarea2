@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class VehicleFile {
 
@@ -47,7 +48,7 @@ public class VehicleFile {
                 this.randomAccessFile.writeFloat(vehicle.getMileage());
                 this.randomAccessFile.writeBoolean(vehicle.isAmerican());
                 this.randomAccessFile.writeInt(vehicle.getSerie());
-                close();
+                
                 return true;
             } // if (vehicle.sizeInBytes() > this.regSize)
         } // if (!(position >= 0 && position <= this.regsQuantity))
@@ -56,7 +57,8 @@ public class VehicleFile {
     public boolean addEndRecord(Vehicle vehicle) throws IOException {
         boolean success = putValue(this.regsQuantity, vehicle);
         if (success) {
-            ++this.regsQuantity;
+            this.regsQuantity++;
+            
         } // if
         return success;
     } // addEndRecord: insertar al final del archivo
@@ -81,20 +83,28 @@ public class VehicleFile {
         }
     } // getVehicle: obtiene vehiculo segun posicion
 
-    public boolean deleteStudent(int serie) throws IOException {
-        Vehicle vehicle;
+    public void deleteStudent(int serie) throws IOException {
+        
+        Vehicle vehicleTemp;
+        ArrayList<Vehicle> list=new ArrayList<>();
         for (int i = 0; i < this.regsQuantity; i++) {
-            vehicle = this.getVehicle(i);
-            if (vehicle.getSerie() == serie) {
-                vehicle.setSerie(-1);
-                return this.putValue(i, vehicle);
+            vehicleTemp = this.getVehicle(i);
+            if (vehicleTemp.getSerie() != serie) {
+                list.add(vehicleTemp);
             }
         }
-        return false;
+        File file=new File(myFilePath);
+        file.delete();
+        this.randomAccessFile=new RandomAccessFile(myFilePath, "rw");
+        this.regsQuantity=0;
+        for (int i = 0; i < list.size(); i++) {
+            this.addEndRecord(list.get(i));
+        }
+        this.randomAccessFile.close();
     } // eliminar vehicle: le da valor -1 a la serie a eliminar
 
     public ArrayList<Vehicle> getAllVehicles() throws IOException {
-        ArrayList<Vehicle> vehiclesArray = new ArrayList<Vehicle>();
+        ArrayList<Vehicle> vehiclesArray = new ArrayList<>();
         for (int i = 0; i < this.regsQuantity; i++) {
             Vehicle vehicleTemp = this.getVehicle(i);
             if (vehicleTemp != null) {
@@ -114,4 +124,5 @@ public class VehicleFile {
         return true;
     } // is Valid: verifica que la serie no esté repetida.
     
+
 } // fin de la clase
