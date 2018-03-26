@@ -1,5 +1,6 @@
 package gui;
 
+import business.VehicleBusiness;
 import domain.Vehicle;
 import file.VehicleFile;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ import javax.swing.JTextField;
 
 public class JIFNewVehicle extends JInternalFrame implements ActionListener {
 
-    private VehicleFile vehicleFile;
+    private VehicleBusiness vehicleBusiness;
     private File file;
 
     private JLabel jlName, jlYear, jlMileage, jlAmerican, jlSerie;
@@ -39,7 +40,7 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
 
     private void init() throws IOException {
         this.file = new File("vehicle.dat");
-        this.vehicleFile = new VehicleFile(file);
+        this.vehicleBusiness = new VehicleBusiness(file);
 
         this.jlName = new JLabel("Name");
         this.jlYear = new JLabel("Year");
@@ -122,12 +123,13 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
                 year = Integer.parseInt(this.jtfYear.getText());
                 mileage = Float.parseFloat(this.jtfMileage.getText());
                 serie = Integer.parseInt(this.jtfSerie.getText());
-                if(year<1885 || mileage<0 || serie<=0){
+                if (year < 1885 || mileage < 0 || serie <= 0) {
                     String message = "Invalid data";
-                    if(year<1885){
+                    if (year < 1885) {
                         message = message + ", the first automobiles were created in the 18th century.";
                     }
                     JOptionPane.showMessageDialog(this, message, "Error", 2);
+                    return false;
                 }
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(this, "The year, mileage and serie must be a number.", "Error", 0);
@@ -138,7 +140,7 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "You must select if the car is American.", "Error", 0);
             return false;
         }
-        if (!vehicleFile.isValid(serie)) {
+        if (!vehicleBusiness.isValid(serie)) {
             JOptionPane.showMessageDialog(this, "The series is already registered.", "Error", 0);
             return false;
         }
@@ -147,7 +149,7 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
             newVehicle.setAmerican(true);
         }
 
-        this.vehicleFile.addEndRecord(newVehicle);
+        this.vehicleBusiness.addEndRecord(newVehicle);
         return true;
     } // newData
 

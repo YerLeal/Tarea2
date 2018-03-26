@@ -59,14 +59,14 @@ public class VehicleFileTest {
             System.out.println(vehicle.toString());
         }
     }
-    
+
     //@Test
-    public void isAmerican() throws IOException{
+    public void isAmerican() throws IOException {
         System.out.println(vehicleFile.isValid(1));
     }
-    
-    //@Test
-    public void deleteVehicleFile() throws IOException{
+
+   @Test
+    public void deleteVehicleFile() throws IOException {
         vehicleFile.deleteStudent(123);
     }
 
