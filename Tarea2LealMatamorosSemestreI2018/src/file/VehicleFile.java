@@ -47,7 +47,6 @@ public class VehicleFile {
                 this.randomAccessFile.writeFloat(vehicle.getMileage());
                 this.randomAccessFile.writeBoolean(vehicle.isAmerican());
                 this.randomAccessFile.writeInt(vehicle.getSerie());
-                close();
                 return true;
             } // if (vehicle.sizeInBytes() > this.regSize)
         } // if (!(position >= 0 && position <= this.regsQuantity))
@@ -70,28 +69,33 @@ public class VehicleFile {
             tempVehicle.setMileage(this.randomAccessFile.readFloat());
             tempVehicle.setAmerican(this.randomAccessFile.readBoolean());
             tempVehicle.setSerie(this.randomAccessFile.readInt());
-            if (tempVehicle.getSerie() == -1) {
-                return null;
-            } else {
-                return tempVehicle;
-            }
+            
+            return tempVehicle;
+            
         } else {
             System.err.println("1003 - position is out of bouns");
             return null;
         }
     } // getVehicle: obtiene vehiculo segun posicion
 
-    public boolean deleteStudent(int serie) throws IOException {
-        Vehicle vehicle;
+    public void deleteStudent(int serie) throws IOException {
+        Vehicle vehicleTemp;
+        ArrayList<Vehicle> list=new ArrayList<>();
         for (int i = 0; i < this.regsQuantity; i++) {
-            vehicle = this.getVehicle(i);
-            if (vehicle.getSerie() == serie) {
-                vehicle.setSerie(-1);
-                return this.putValue(i, vehicle);
-            }
-        }
-        return false;
-    } // eliminar vehicle: le da valor -1 a la serie a eliminar
+            vehicleTemp = this.getVehicle(i);
+            if (vehicleTemp.getSerie() != serie) {
+                list.add(vehicleTemp);
+            }//if
+        }//for
+        File file=new File(myFilePath);
+        file.delete();
+        this.randomAccessFile=new RandomAccessFile(myFilePath, "rw");
+        this.regsQuantity=0;
+        for (int i = 0; i < list.size(); i++) {
+            this.addEndRecord(list.get(i));
+        }//for
+
+    } // eliminar vehicle: elimina los Vehiculos del archivo
 
     public ArrayList<Vehicle> getAllVehicles() throws IOException {
         ArrayList<Vehicle> vehiclesArray = new ArrayList<Vehicle>();

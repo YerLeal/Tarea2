@@ -2,10 +2,8 @@ package gui;
 
 import business.VehicleBusiness;
 import domain.Vehicle;
-import file.VehicleFile;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +18,6 @@ import javax.swing.JTextField;
 public class JIFNewVehicle extends JInternalFrame implements ActionListener {
 
     private VehicleBusiness vehicleBusiness;
-    private File file;
 
     private JLabel jlName, jlYear, jlMileage, jlAmerican, jlSerie;
     private JTextField jtfName, jtfYear, jtfMileage, jtfSerie;
@@ -39,8 +36,8 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
     } // constructor
 
     private void init() throws IOException {
-        this.file = new File("vehicle.dat");
-        this.vehicleBusiness = new VehicleBusiness(file);
+
+        this.vehicleBusiness = new VehicleBusiness();
 
         this.jlName = new JLabel("Name");
         this.jlYear = new JLabel("Year");
@@ -102,7 +99,9 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
                     this.jtfYear.setText("");
                     this.jtfMileage.setText("");
                     this.jtfSerie.setText("");
-                    this.dispose();
+                    JOptionPane.showMessageDialog(rootPane, "Success");
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Could not save, plis check the fields");
                 }
             } catch (IOException ex) {
                 Logger.getLogger(JIFNewVehicle.class.getName()).log(Level.SEVERE, null, ex);
