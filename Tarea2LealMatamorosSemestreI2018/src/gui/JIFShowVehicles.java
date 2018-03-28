@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import business.VehicleBusiness;
@@ -19,11 +14,8 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author maikel
- */
-public class JIFShowVehicles extends JInternalFrame implements InternalFrameListener{
+public class JIFShowVehicles extends JInternalFrame implements InternalFrameListener {
+
     //Atributos
     private VehicleBusiness vehiBusiness;
     private JTable jtbTable1;
@@ -37,9 +29,10 @@ public class JIFShowVehicles extends JInternalFrame implements InternalFrameList
         this.setLayout(null);
         this.refresh();
         this.setLocation(20, 40);
-        this.setSize(400, 350);
+        this.setSize(600, 350);
         this.addInternalFrameListener(this);
     }
+
     //inicializa la tabla
     public void initTable(ArrayList<Vehicle> list) {
 
@@ -51,17 +44,17 @@ public class JIFShowVehicles extends JInternalFrame implements InternalFrameList
             this.dtmModelTable.addRow(new Object[]{list.get(i).getName(), list.get(i).getYear(), list.get(i).getMileage(),
                 list.get(i).getAmerican(), list.get(i).getSerie()});
 
-        }
+        } // for
         this.jtbTable1 = new JTable(this.dtmModelTable);
         this.scrollPane = new JScrollPane(this.jtbTable1);
-        scrollPane.setBounds(50, 5, 300, 300);
+        scrollPane.setBounds(50, 5, 500, 300);
         this.setForeground(Color.red);
         this.jtbTable1.setSelectionBackground(Color.GREEN);
         this.getContentPane().add(scrollPane);
         this.jtbTable1.setEnabled(false);
 
     } // initTabla
-    
+
     //refresca los valores de la tabla
     public void refresh() {
         try {
@@ -73,42 +66,36 @@ public class JIFShowVehicles extends JInternalFrame implements InternalFrameList
         }
         initTable(this.list);
 
-    }
+    } // refresh
+
     //Evento internalFrame para que cuando se cierre habilite el JMitem con el que se abre la ventana
     @Override
     public void internalFrameOpened(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameClosed(InternalFrameEvent e) {
         Window.jmiShow.setEnabled(true);
-
-    }
+    } // internalFrameClosed
 
     @Override
     public void internalFrameIconified(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameDeiconified(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameActivated(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
-
     }
 
-}
+} // fin de la clase

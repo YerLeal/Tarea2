@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
+import business.VehicleBusiness;
 import domain.Vehicle;
-import file.VehicleFile;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.junit.After;
@@ -16,18 +10,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author yer
- */
 public class VehicleFileTest {
 
-    VehicleFile vehicleFile;
-    File file;
+    VehicleBusiness vehicleBusiness;
 
     public VehicleFileTest() throws IOException {
-        this.file = new File("vehicle.dat");
-        this.vehicleFile = new VehicleFile(file);
+        vehicleBusiness = new VehicleBusiness();
     }
 
     @BeforeClass
@@ -47,32 +35,42 @@ public class VehicleFileTest {
     }
 
     //@Test
-    public void addNewVehicle() throws IOException {
-        Vehicle v = new Vehicle("Cadillac", 2010, 100, true, 123);
-        vehicleFile.addEndRecord(v);
+    public void addNewVehicle() throws IOException{
+        vehicleBusiness.addEndRecord(new Vehicle("Prueba", 1, 2, true, 99));
     }
-
-    @Test
+    
+    //@Test
     public void allVehicles() throws IOException {
-        ArrayList<Vehicle> vehicles = vehicleFile.getAllVehicles();
-        for (Vehicle vehicle : vehicles) {
+        ArrayList<Vehicle> list = vehicleBusiness.getAllVehicles();
+        for (Vehicle vehicle : list) {
             System.out.println(vehicle.toString());
         }
+    } // allVehicles
+
+    //@Test
+    public void getPosition() throws IOException {
+        ArrayList<Vehicle> list = vehicleBusiness.getAllVehicles();
+        for (Vehicle vehicle : list) {
+            System.out.println(vehicleBusiness.getPosition(vehicle.getSerie()));
+        }
+    }//getPosition
+
+    //@Test
+    public void getVehicleSerie() throws IOException {
+        System.out.println(vehicleBusiness.getVehicle(vehicleBusiness.getPosition(288)));
     }
 
     //@Test
-    public void isAmerican() throws IOException {
-        System.out.println(vehicleFile.isValid(1));
-    }
+    public void updateVehicle() throws IOException {
+        Vehicle vehicle = vehicleBusiness.getVehicle(vehicleBusiness.getPosition(99));
+        
+        System.out.println("Registro anterior:" + vehicle.toString());
+        
+        vehicle.setName("PruebaActualizada");
+        
+        vehicleBusiness.updateRecord(vehicle);
+        
+        System.out.println("Registro nuevo:" + vehicleBusiness.getVehicle(vehicleBusiness.getPosition(99)));
+    } // updateVehicle
 
-   @Test
-    public void deleteVehicleFile() throws IOException {
-        vehicleFile.deleteStudent(123);
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-}
+} // fin de la clase

@@ -60,7 +60,7 @@ public class VehicleFile {
         return success;
     } // addEndRecord: insertar al final del archivo
 
-    private Vehicle getVehicle(int position) throws IOException {
+    public Vehicle getVehicle(int position) throws IOException {
         if (position >= 0 && position <= this.regsQuantity) {
             this.randomAccessFile.seek(position * this.regSize);
             Vehicle tempVehicle = new Vehicle();
@@ -69,9 +69,9 @@ public class VehicleFile {
             tempVehicle.setMileage(this.randomAccessFile.readFloat());
             tempVehicle.setAmerican(this.randomAccessFile.readBoolean());
             tempVehicle.setSerie(this.randomAccessFile.readInt());
-            
+
             return tempVehicle;
-            
+
         } else {
             System.err.println("1003 - position is out of bouns");
             return null;
@@ -80,17 +80,17 @@ public class VehicleFile {
 
     public void deleteStudent(int serie) throws IOException {
         Vehicle vehicleTemp;
-        ArrayList<Vehicle> list=new ArrayList<>();
+        ArrayList<Vehicle> list = new ArrayList<>();
         for (int i = 0; i < this.regsQuantity; i++) {
             vehicleTemp = this.getVehicle(i);
             if (vehicleTemp.getSerie() != serie) {
                 list.add(vehicleTemp);
             }//if
         }//for
-        File file=new File(myFilePath);
+        File file = new File(myFilePath);
         file.delete();
-        this.randomAccessFile=new RandomAccessFile(myFilePath, "rw");
-        this.regsQuantity=0;
+        this.randomAccessFile = new RandomAccessFile(myFilePath, "rw");
+        this.regsQuantity = 0;
         for (int i = 0; i < list.size(); i++) {
             this.addEndRecord(list.get(i));
         }//for
@@ -107,15 +107,42 @@ public class VehicleFile {
         } // for
         return vehiclesArray;
     } // getAllVehicles: retorna todos los vehiculos registrados
-    
-    public boolean isValid(int serie) throws IOException{
+
+    public boolean isValid(int serie) throws IOException {
         ArrayList<Vehicle> list = getAllVehicles();
         for (Vehicle vehicle : list) {
-            if(vehicle.getSerie()==serie){
+            if (vehicle.getSerie() == serie) {
                 return false;
             }
         }
         return true;
     } // is Valid: verifica que la serie no esté repetida.
-    
+
+    public int getPosition(int serie) {
+        int seek;
+        for (int i = 0; i <= this.regsQuantity; i++) {
+            try {
+                seek = i * this.regSize;
+                this.randomAccessFile.seek(i * this.regSize);
+                Vehicle vehicle = new Vehicle();
+                vehicle.setName(this.randomAccessFile.readUTF());
+                vehicle.setYear(this.randomAccessFile.readInt());
+                vehicle.setMileage(this.randomAccessFile.readFloat());
+                vehicle.setAmerican(this.randomAccessFile.readBoolean());
+                vehicle.setSerie(this.randomAccessFile.readInt());
+                if (serie == vehicle.getSerie()) {
+                    return i;
+                } // if
+            } // for
+            catch (IOException ex) {
+                return -1;
+            }
+        }
+        return -1;
+    } // getPosition: retorna posicion de registro según serie
+
+    public boolean updateRecord(Vehicle newDataVehicle) throws IOException {
+        return putValue(getPosition(newDataVehicle.getSerie()), newDataVehicle);
+    } // updateRecord: actualiza registro
+
 } // fin de la clase

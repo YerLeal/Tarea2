@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import business.VehicleBusiness;
@@ -26,10 +21,6 @@ import javax.swing.event.InternalFrameListener;
 
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author maikel
- */
 public class JIFDeleteVehicle extends JInternalFrame implements ActionListener, MouseListener, InternalFrameListener {
 
     private VehicleBusiness vehiBusiness;
@@ -56,7 +47,7 @@ public class JIFDeleteVehicle extends JInternalFrame implements ActionListener, 
         this.jbtnDelete.addActionListener(this);
         this.add(this.jbtnDelete);
 
-    }//inicializa el boton
+    } // inicializa el boton
 
     public void initTable(ArrayList<Vehicle> list) {
 
@@ -76,8 +67,7 @@ public class JIFDeleteVehicle extends JInternalFrame implements ActionListener, 
         this.jtbTable1.setSelectionBackground(Color.GREEN);
         this.getContentPane().add(scrollPane);
         this.jtbTable1.addMouseListener(this);
-
-    } //inicializa el modelo de la tabla cargando los valores del archivo
+    } // inicializa el modelo de la tabla cargando los valores del archivo
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -103,7 +93,8 @@ public class JIFDeleteVehicle extends JInternalFrame implements ActionListener, 
 
         }//if (e.getSource() == this.jbtnDelete)
 
-    }
+    } // actionPerformed
+
     //Eventos para el mouse, se usa para saber cual es el vehiculo que se selecciona en la tabla
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -112,23 +103,20 @@ public class JIFDeleteVehicle extends JInternalFrame implements ActionListener, 
 
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
+
     //metodo para refrescar la Tabla
     public void refresh() {
         try {
@@ -140,42 +128,36 @@ public class JIFDeleteVehicle extends JInternalFrame implements ActionListener, 
         }
         initTable(this.list);
 
-    }
+    } // refresh
+
     //evento de internalFrame, se usa para volver a hacer usable el JMitem que abre la ventana
     @Override
     public void internalFrameOpened(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameClosing(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameClosed(InternalFrameEvent e) {
         Window.jmiDelete.setEnabled(true);
-
     }
 
     @Override
     public void internalFrameIconified(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameDeiconified(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameActivated(InternalFrameEvent e) {
-
     }
 
     @Override
     public void internalFrameDeactivated(InternalFrameEvent e) {
-
     }
 
-}
+} // fin de la clase

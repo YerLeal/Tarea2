@@ -63,10 +63,11 @@ public class Vehicle {
     public void setSerie(int serie) {
         this.serie = serie;
     }
-    public String getAmerican(){
-        if(this.american){
+
+    public String getAmerican() {
+        if (this.american) {
             return "Sí";
-        }else{
+        } else {
             return "No";
         }
     }
@@ -75,12 +76,12 @@ public class Vehicle {
     public String toString() {
         return "Vehicle{" + "serie=" + serie + ", name=" + name + ", year=" + year + ", mileage=" + mileage + ", american=" + american + '}';
     }
-    
-    public int sizeInBytes(){
+
+    public int sizeInBytes() {
         //long: necesita 2 bytes
         //String: necesita 2 bytes de escpacio
-        return  this.name.length() * 2 + 4 + 4 + 1 + 4 ; // boolean
-        
+        return this.name.length() * 2 + 4 + 4 + 1 + 4; // boolean
+
         // name (20 caracteres maximo)
         // year (int:32 bits, 4bytes)
         // mileage (float: 32bits, 4 bytes))

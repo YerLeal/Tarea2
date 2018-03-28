@@ -14,8 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 
-public class JIFNewVehicle extends JInternalFrame implements ActionListener {
+public class JIFNewVehicle extends JInternalFrame implements ActionListener, InternalFrameListener {
 
     private VehicleBusiness vehicleBusiness;
 
@@ -28,15 +30,13 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
     public JIFNewVehicle() throws IOException {
         super("New Vehicle", false, true, false, false);
         this.setLayout(null);
-
         this.init();
-        this.setVisible(false);
         this.setLocation(20, 40);
         this.setSize(300, 325);
+        this.addInternalFrameListener(this);
     } // constructor
 
     private void init() throws IOException {
-
         this.vehicleBusiness = new VehicleBusiness();
 
         this.jlName = new JLabel("Name");
@@ -100,8 +100,6 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
                     this.jtfMileage.setText("");
                     this.jtfSerie.setText("");
                     JOptionPane.showMessageDialog(rootPane, "Success");
-                }else{
-                    JOptionPane.showMessageDialog(rootPane, "Could not save, plis check the fields");
                 }
             } catch (IOException ex) {
                 Logger.getLogger(JIFNewVehicle.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,5 +149,34 @@ public class JIFNewVehicle extends JInternalFrame implements ActionListener {
         this.vehicleBusiness.addEndRecord(newVehicle);
         return true;
     } // newData
+
+    @Override
+    public void internalFrameOpened(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameClosing(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameClosed(InternalFrameEvent e) {
+        Window.jmiNewVehicle.setEnabled(true);
+    } // Evento internalFrame para que cuando se cierre habilite el JMitem con el que se abre la ventana
+
+    @Override
+    public void internalFrameIconified(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameDeiconified(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameActivated(InternalFrameEvent e) {
+    }
+
+    @Override
+    public void internalFrameDeactivated(InternalFrameEvent e) {
+    }
 
 } // fin de la clase
