@@ -62,7 +62,7 @@ public class JIFDeleteVehicle extends JInternalFrame implements ActionListener, 
         }//for
         this.jtbTable1 = new JTable(this.dtmModelTable);
         this.scrollPane = new JScrollPane(this.jtbTable1);
-        scrollPane.setBounds(0, 2, 300, 300);
+        scrollPane.setBounds(5, 5, 300, 285);
         this.setForeground(Color.red);
         this.jtbTable1.setSelectionBackground(Color.GREEN);
         this.getContentPane().add(scrollPane);
